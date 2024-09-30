@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version('3.2.0')
+    id 'io.spring.dependency-management' version('1.1.0')
+}
+
+group = 'me.changwook'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation "org.assertj:assertj-core:3.20.2"
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    //스프링 데이터 jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    //인메모리 데이터베이스
+    runtimeOnly('com.h2database:h2')
+    //롬복
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor'org.projectlombok:lombok'
+    //타임리프 의존성 추가
+    implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
+
+}
+
+test {
+    useJUnitPlatform()
+}
