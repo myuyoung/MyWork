@@ -13,3 +13,7 @@ spring:
   h2:
     console:
       enabled: true
+#JWT 토큰을 만드는 설정
+jwt:
+  issuer: ajufresh@gmail.com
+  secret_key: study-springboot

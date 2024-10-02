@@ -37,7 +37,7 @@ public class WebSecurityConfig {
         return http.authorizeRequests(auth -> auth //인증,인가 설정 3  //특정 경로에 대한 액세스 설정을 합니다. 각 설정은 다음과 같습니다. requestMatchers():특정 요청과 일치하는 url에 대한 액세스를 설정합니다.  permitAll():누구나 접근이 가능하게 설정합니다. 즉,"/login","/signup","/user" 로 요청이 오면 인증/인가 없이도 접근할 수 있습니다.  anyRequest(): 위에서 설정한 url 이외의 요청에 대해서 설정합니다. authenticated(): 별도의 인가는 필요하지 않지만 인증이 성공된 상태여야 접근할 수 있습니다.
                 .requestMatchers(
                         new AntPathRequestMatcher("/login"),
-                        new AntPathRequestMatcher("/singup"),
+                        new AntPathRequestMatcher("/signup"),
                         new AntPathRequestMatcher("/user")
                 ).permitAll().anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin //폼 기반 로그인 설정 4 // 폼 기반 로그인 설정을 합니다. loginPage(): 로그인 페이지 경로를 설정합니다. defaultSuccessUrl(): 로그인이 완료되었을 때 이동할 경로를 설정합니다.
