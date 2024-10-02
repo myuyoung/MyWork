@@ -7,6 +7,7 @@ import me.changwook.springbootdeveloper.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+//AddUserRequest객체를 인수로 받는 회원 정보 추가 메서드를 작성
 @RequiredArgsConstructor
 @Service
 public class UserService {
