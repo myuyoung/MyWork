@@ -1,0 +1,18 @@
+25. (자바 문법)<? extends GrantedAuthority>
+    1. **<? extends GrantedAuthority>**는 좀 더 복잡해 보이지만 간단히 말하면, **GrantedAuthority**라는 클래스(또는 인터페이스)를 **상속**한 모든 클래스 타입을 사용할 수 있다는 의미입니다.
+        
+        •	여기서 **?**는 “어떤 타입이든지”를 의미합니다.
+        
+        •	즉, 이 Collection에는 GrantedAuthority**를 상속한 클래스**만 들어갈 수 있습니다.
+        
+26. UserDetails클래스
+    1. UserDetails 클래스는 스프링 시큐리티에서 사용자의 인증 정볼르 담아두는 인터페이스입니다. 스프링 시큐리티에서 해당 객체를 통해 인증 정보를 가져오려면 필수 오버라이드 메서드들을 여러 개 사용해야 합니다.
+    2. 
+        | 메서드 | 반환 타입 | 설명 |
+        | getAuthorites() | Collection<? extends GrantedAuthority> | 사용자가 가지고 있는 권한의 목록을 반환합니다. 현재 예제 코드에서는 사용자 이외의 권한이 없기 때문에 user 권한만 담아 반환합니다. |
+        | getUsername() | String | 사용자를 식별할 수 있는 사용자 이름을 반환합니다. 이때 사용되는 사용자 이름은 반드시 고유해야 합니다. 현재 예제 코드는 유니크 속성이 적용된 이메일을 반환합니다. |
+        | getPassword() | String | 사용자의 비밀번호를 반환합니다. 이때 저장되어 있는 비밀번호는 암호화해서 저장해야 합니다. |
+        | isAccountNonLocked() | boolean | 계정이 만료되었는지 확인하는 메서드입니다. 만약 만료되지 않은 때는 true를 반환합니다. |
+        | isAccountNonLocked() | boolean | 계정이 잠금되었는지 확인하는 메서드입니다. 만약 잠금되지 않은 때는 true를 반환합니다. |
+        | isCredentialIsNonExpired() | boolean | 비밀번호가 만료되었는지 확인하는 메서드입니다. 만약 만료되지 않는 때는 true를 반환합니다. |
+        | isEnabled() | boolean | 계정이 사용 가능한지 확인하는 메서드입니다. 만약 사용 가능하다면 true를 반환합니다. |
