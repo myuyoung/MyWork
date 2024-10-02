@@ -16,4 +16,29 @@
         | isAccountNonLocked() | boolean | 계정이 잠금되었는지 확인하는 메서드입니다. 만약 잠금되지 않은 때는 true를 반환합니다. |
         | isCredentialIsNonExpired() | boolean | 비밀번호가 만료되었는지 확인하는 메서드입니다. 만약 만료되지 않는 때는 true를 반환합니다. |
         | isEnabled() | boolean | 계정이 사용 가능한지 확인하는 메서드입니다. 만약 사용 가능하다면 true를 반환합니다. |
-        
+27. where name = ?1
+    1. where name = ?1는 **SQL 쿼리**에서 **조건절**(WHERE)을 설정하는 방법 중 하나로, **JPA** 또는 **JPQL**(Java Persistence Query Language)에서 **파라미터 바인딩**을 할 때 사용됩니다. 쉽게 설명하면, 쿼리에서 특정 값을 조건으로 검색할 때 **플레이스홀더**를 사용하는 방식입니다.
+    2. **설명:**
+
+        •	where name = ?1:
+
+        •	name이라는 필드가 **어떤 값**과 같은지 조건을 설정하는 부분입니다.
+
+        •	?1은 **첫 번째 파라미터**를 의미합니다. 즉, 이 자리에 **실제 값**이 나중에 바인딩되어 들어갑니다.
+
+    3. **사용 시나리오:**
+
+        이 방식은 **PreparedStatement**를 사용해 SQL Injection 같은 보안 문제를 피하면서 **파라미터를 바인딩**할 수 있습니다.
+
+28. 스프링 시큐리티를 사용할 때 자주 쓰는 쿼리 메서드(JpaRepository)
+    1. 자주 사용하는 쿼리 메서드
+
+
+        | 코드 | 설명 | 쿼리 |
+        | --- | --- | --- |
+        | findByName() | “name”컬럼의 값 중 파라미터로 들어오는 값과 같은 데이터 변환 | where name = ?1 |
+        | findByNameAndAge() | 파라미터로 들어오는 값 중 첫 번째 값은 “name”컬럼에서 조회하고, 두 번째 값은”age”컬럼에서 조회 한 데이터 변환 | where name =?1 and age= ?2 |
+        | findByNameOrAge() | 파리미터로 들어오는 값 중 첫 번째 값이”name”컬럼에서 조회되거나 두 번째 값이 “age”에서 조회되는 데이터 반환 | where name =?1 or age =?2 |
+        | findByAgeLessThan() | “age” 컬럼의 값 중 파라미터로 들어온 값보다 작은 데이터 반환 | where age <?1 |
+        | findByAgeGreateThan() | “age” 컬럼의 값 중 파라미터로 들어온 값보다 큰 데이터 반환 | where age >?1 |
+        | findByName(Is)Null() | “name” 컬럼의 값 중 null인 데이터 반환 | where name IS NULL |
