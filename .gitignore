@@ -42,4 +42,4 @@ bin/
 .DS_Store
 
 # application.yml 파일을 GitHub에 업로드하지 않음
-src/main/resources/application.yml
+application.yml
