@@ -2,6 +2,8 @@ package me.changwook.springbootdeveloper.config;
 
 import lombok.RequiredArgsConstructor;
 import me.changwook.springbootdeveloper.config.jwt.TokenProvider;
+import me.changwook.springbootdeveloper.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import me.changwook.springbootdeveloper.config.oauth.OAuth2SuccessHandler;
 import me.changwook.springbootdeveloper.config.oauth.OAuth2UserCustomService;
 import me.changwook.springbootdeveloper.repository.RefreshTokenRepository;
 import me.changwook.springbootdeveloper.service.UserService;
