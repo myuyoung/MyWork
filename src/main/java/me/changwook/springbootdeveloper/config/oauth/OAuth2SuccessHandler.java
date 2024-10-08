@@ -37,18 +37,22 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         User user = userService.findByEmail((String) oAuth2User.getAttributes().get("email"));
 
         //리프레쉬 토큰 생성 -> 저장 -> 쿠키에 저장 1
+        //토큰 제공자를 사용해 리프레시 토큰을 만든 뒤에, saveRefreshToken()메서드를 호출해 해당 리프레시 토큰을 데이터베이스에 유저 아이디와 함께 저장합니다. 그 이후에는 클라이언트에서 액세스 토큰이 만료되면 재발급 요청하도록 addRefreshTokenToCookie()메서드를 호출해 쿠키에 리프레시 토큰을 저장합니다.
         String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);
         saveRefreshToken(user.getId(), refreshToken);
         addRefreshTokenToCookie(request, response, refreshToken);
 
         //액세스 토큰 생성 -> 패스에 액세스 토큰 추가 2
+        //토큰 제공자를 사용해 액세스 토큰을 만든 뒤에 쿠키에서 리다이렉트 경로가 담긴 값을 가져와 쿼리 파라미터에 액세스 토큰을 추가합니다.
         String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_DURATION);
         String targetUrl = getTargetUrl(accessToken);
 
         //인증 관련 설정값,쿠키 제거 3
+        //인증 프로세스를 진행하면서 세션과 쿠키에 임시로 저장해둔 인증 관련 데이터를 제거합니다. 기본적으로 제공하는 메서드인 clearAuthenticationAttributes()는 그대로 호출하고 removeAuthorizationRequestCookies()를 추가로 호출해 OAuth 인증을 위해 저장된 정보도 삭제합니다.
         clearAuthenticationAttributes(request, response);
 
         //리다이렉트 4
+        //2에서 만든 URL로 리다이렉트합니다.
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 

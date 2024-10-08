@@ -6,6 +6,7 @@ import me.changwook.springbootdeveloper.domain.Article;
 import me.changwook.springbootdeveloper.dto.AddArticleRequest;
 import me.changwook.springbootdeveloper.dto.UpdateArticleRequest;
 import me.changwook.springbootdeveloper.repository.BlogRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class BlogService {
 
     //블로그 글 추가 메서드
     //save()메서드는 JpaRepository 에서 지원하는 저장 메서드 save() AddArticleRequest 클래스에 저장된 값들을 article 데이터베이스에 저장합니다.
-    public Article save(AddArticleRequest request){
-        return blogRepository.save(request.toEntity());
+    public Article save(AddArticleRequest request,String userName){
+        return blogRepository.save(request.toEntity(userName));
     }
 
     public List<Article> findAll(){
@@ -27,16 +28,30 @@ public class BlogService {
     public Article findById(long id){
         return blogRepository.findById(id).orElseThrow(()->new IllegalArgumentException("not found" + id));
     }
-    public void delete(long id){
-        blogRepository.deleteById(id);
-    }
-    @Transactional  //트랜잭션 메서드
-    public Article update(long id, UpdateArticleRequest request){
-        Article article = blogRepository.findById(id).orElseThrow(()->new IllegalArgumentException("not found" + id));
+    public void delete(long id) {
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
 
+        authorizeArticleAuthor(article);
+        blogRepository.delete(article);
+    }
+
+    @Transactional
+    public Article update(long id, UpdateArticleRequest request) {
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+
+        authorizeArticleAuthor(article);
         article.update(request.getTitle(), request.getContent());
 
         return article;
+    }
+
+    private static void authorizeArticleAuthor(Article article) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!article.getAuthor().equals(userName)) {
+            throw new IllegalArgumentException("not authorized");
+        }
     }
 
 }
