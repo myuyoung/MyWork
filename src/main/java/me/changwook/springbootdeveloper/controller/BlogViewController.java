@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
-public class BlogViewController {
+public class    BlogViewController {
     private final BlogService blogService;
 
     @GetMapping("/articles")

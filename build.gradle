@@ -42,8 +42,14 @@ dependencies {
     implementation('javax.xml.bind:jaxb-api:2.3.1') //XML 문서와 Java객체 간 매핑 자동화
 
     implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
+
+    implementation ('com.mysql:mysql-connector-j')
 }
 
 test {
     useJUnitPlatform()
+    jvmArgs('-Xshare:off')
+}
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ["-Xlint:deprecation"]
 }

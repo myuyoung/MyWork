@@ -35,7 +35,7 @@ public class WebOAuthSecurityConfig {
         return (web) -> web.ignoring().requestMatchers(toH2Console()).requestMatchers(
                 new AntPathRequestMatcher("/img/**"),
                 new AntPathRequestMatcher("/css/**"),
-                new AntPathRequestMatcher("/js/**")
+                new AntPathRequestMatcher("/static/js/**")
         );
     }
     @Bean
@@ -52,7 +52,7 @@ public class WebOAuthSecurityConfig {
                 .addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 //토큰 재발급 URL은 인증 없이 접근 가능하도록 설정. 나머지 API URL은 인증 필요 3
                 //토큰 재발급 URL은 인증없이 접근하도록 설정하고 나머지 API들은 인증을 해야 접근하도록 설정합니다
-                .authorizeRequests(auth-> auth
+                .authorizeHttpRequests(auth-> auth
                         .requestMatchers(new AntPathRequestMatcher("/api/token")).
                         permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/**")).
