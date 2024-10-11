@@ -4,9 +4,8 @@ spring:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_CLIENT_ID}
-            client-secret: ${GOOGLE_CLIENT_SECRET}
-            redirect-uri: http://Springboot-developer-env.eba-uq72ug2d.ap-northeast-2.elasticbeanstalk.com/login/oauth2/code/google
+            client-id: test_id
+            client-secret: test_secret
             scope:
               - email
               - profile
@@ -26,4 +25,4 @@ spring:
 #JWT 토큰을 만드는 설정
 jwt:
   issuer: ajufresh@gmail.com
-  secret_key: study-springboot
+  secret_key: test_key
