@@ -1,0 +1,29 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            redirect-uri: http://Springboot-developer-env.eba-uq72ug2d.ap-northeast-2.elasticbeanstalk.com/login/oauth2/code/google
+            scope:
+              - email
+              - profile
+  jpa:
+    #전송 쿼리 확인
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    #테이블 생성 후에 data.sql 실행
+    defer-datasource-initialization : true
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+#JWT 토큰을 만드는 설정
+jwt:
+  issuer: ajufresh@gmail.com
+  secret_key: study-springboot
