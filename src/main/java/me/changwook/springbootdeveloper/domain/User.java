@@ -86,7 +86,6 @@ public class User implements UserDetails {  //UserDeatails를 상속받아 인�
     //사용자 이름 변경
     public User update(String nickname){
         this.nickname = nickname;
-
         return this;
     }
 
